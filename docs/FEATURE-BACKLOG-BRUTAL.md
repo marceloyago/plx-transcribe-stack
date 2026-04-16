@@ -7,11 +7,11 @@
 - Modelo de job, estados, erros tipados.
 - Modos de transcrição (`cheetah` | `dolphin` | `whale` como nomes de produto).
 
-## Fase 1 — MVP API
+## Fase 1 — MVP API (em curso)
 
-- `POST /jobs` (ficheiro ou URL).
-- `GET /jobs/:id` + SSE ou polling.
-- Webhook HMAC opcional.
+- [x] `POST /v1/jobs` (JSON + `sourceObjectKey`; upload multipart / URL assinada — pendente).
+- [x] `GET /v1/jobs/:id` (polling; SSE — pendente).
+- [ ] Webhook HMAC opcional.
 
 ## Fase 2 — Produto “Turbo-like”
 

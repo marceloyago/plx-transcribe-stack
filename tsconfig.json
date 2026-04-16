@@ -10,5 +10,5 @@
     "rootDir": ".",
     "types": ["node"]
   },
-  "include": ["contracts/**/*.ts"]
+  "include": ["contracts/**/*.ts", "apps/api/**/*.ts"]
 }
