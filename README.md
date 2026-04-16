@@ -24,7 +24,9 @@ Ver `transcribe-service/README.md`.
 ## Dashboard Next.js (`apps/dashboard`)
 
 - UI comercial mínima (painel + nova job + detalhe) ligada à API Python via **Server Actions** (chave só no servidor).
-- Arranque: copiar `apps/dashboard/.env.local.example` para `apps/dashboard/.env.local` → definir `PLX_TRANSCRIBE_API_URL` (ex. `http://127.0.0.1:3055`) → com API Python a correr: `npm run dashboard:dev` → abrir `http://localhost:3000`.
+- **Porta dev `3099` (obrigatório):** o **PLX Dev Studio** (`plx-dev-studio`) usa **`3000`** na mesma máquina/Synapse — não misturar. O dashboard Transcriber **nunca** deve correr em `3000` ao lado do Studio.
+- Arranque: copiar `apps/dashboard/.env.local.example` para `apps/dashboard/.env.local` → definir `PLX_TRANSCRIBE_API_URL` (ex. `http://127.0.0.1:3055` = API Python) → com API Python a correr: `npm run dashboard:dev` → abrir **`http://localhost:3099`**.
+- **Tailnet:** expor com `tailscale serve` na **porta 3099** (ex.: `http://msi.tail8a195c.ts.net:3099` → `http://127.0.0.1:3099`); reservar **`3000`** + HTTPS principal do nó para o Studio.
 - Build: `npm run dashboard:build` (a partir da raiz, depois de `npm install` dentro de `apps/dashboard`).
 
 ## Docker (produção mínima)

@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: [
     "https://plx-synapse.tail8a195c.ts.net",
     "http://plx-synapse.tail8a195c.ts.net",
+    "https://plx-synapse.tail8a195c.ts.net:3099",
+    "http://plx-synapse.tail8a195c.ts.net:3099",
   ],
   webpack: (config) => {
     config.resolve = config.resolve ?? {};
@@ -18,6 +20,8 @@ const nextConfig: NextConfig = {
     return config;
   },
   experimental: {
+    // Monorepo: imports de `contracts/` fora de `apps/dashboard`.
+    externalDir: true,
     serverActions: {
       bodySizeLimit: "50mb",
     },

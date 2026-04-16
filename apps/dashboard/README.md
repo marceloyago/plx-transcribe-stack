@@ -2,19 +2,13 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+Dashboard **Transcriber** — porta **`3099`** (a **3000** fica reservada ao **PLX Dev Studio** na mesma máquina).
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir [http://localhost:3099](http://localhost:3099). Definir `PLX_TRANSCRIBE_API_URL` em `.env.local` (API Python, tipicamente `http://127.0.0.1:3055`).
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
