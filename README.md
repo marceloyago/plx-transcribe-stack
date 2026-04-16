@@ -21,6 +21,11 @@ Ver `transcribe-service/README.md`.
 - `contracts/plxTranscribeClient.ts` — `createPlxTranscribeClient({ baseUrl, apiKey?, tenantId? })` alinhado à API Python.
 - Variáveis de ambiente sugeridas no front: URL público HTTPS + mesma `PLX_INTERNAL_API_KEY` que o serviço (via BFF, se possível).
 
+## Sinergia com PLX Dev Studio (mesmo propósito PlayLoadX)
+
+- O **Studio** (`plx-dev-studio`) pode mostrar o Transcriber na **`/client`** e expor metadados em **`GET /api/plx/merger-pack`** (`playloadxSynergy.transcribe`) quando definires no **Studio** a variável **`NEXT_PUBLIC_PLX_TRANSCRIBE_DASHBOARD_URL`** com a URL deste dashboard (ex. URL pública ou `http://…:3099` na tailnet).
+- Isto **não** mistura repositórios: é só **deep link** + texto de propósito comum (entregáveis e acompanhamento ao cliente).
+
 ## Dashboard Next.js (`apps/dashboard`)
 
 - UI comercial mínima (painel + nova job + detalhe) ligada à API Python via **Server Actions** (chave só no servidor).
