@@ -13,7 +13,7 @@
 - [x] `GET /v1/jobs/:id` — polling.
 - [x] `GET /v1/peers` + registo YAML (Regra 0 — visibilidade mútua).
 - [x] Gate humano opcional (`PLX_REQUIRE_HUMAN_APPROVAL` + `POST /v1/jobs/{id}/human-approve`).
-- [ ] Webhook HMAC opcional.
+- [x] Webhook HMAC opcional (`PLX_WEBHOOK_URL` / `PLX_WEBHOOK_SECRET`).
 - [ ] URL assinada (ingestão sem upload directo).
 
 ## Fase 2 — Produto “Turbo-like”

@@ -17,10 +17,11 @@ dependencies = [
   "python-multipart>=0.0.12",
   "faster-whisper>=1.1.0",
   "PyYAML>=6.0.2",
+  "httpx>=0.28.0",
 ]
 
 [project.optional-dependencies]
-dev = ["httpx>=0.28.0", "pytest>=8.3.0"]
+dev = ["pytest>=8.3.0"]
 
 [project.scripts]
 plx-transcribe-api = "plx_transcribe.main:run"

@@ -21,6 +21,7 @@ from plx_transcribe.models import JobStatus, TranscribeMode, TranscriptionJob
 from plx_transcribe.peers import load_peers_yaml, merge_peers_view
 from plx_transcribe.pipeline import run_transcription_pipeline
 from plx_transcribe.settings import Settings
+from plx_transcribe.webhooks import schedule_job_webhook
 from plx_transcribe import whisper_engine
 
 logging.basicConfig(level=logging.INFO)
@@ -152,6 +153,7 @@ def create_app() -> FastAPI:
                     "text_preview": (job.full_text or "")[:800],
                 },
             )
+        schedule_job_webhook(job_id, store=store, settings=settings)
         return job.to_public_dict()
 
     return app

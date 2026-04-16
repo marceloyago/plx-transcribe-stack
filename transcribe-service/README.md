@@ -26,6 +26,8 @@ uvicorn plx_transcribe.main:app --host 0.0.0.0 --port 3055 --reload
 | `SERVICE_ID` | id deste serviço (ex.: `plx-transcribe-service`) |
 | `PUBLIC_BASE_URL` | URL pública deste serviço |
 | `SKIP_WHISPER_PRELOAD` | `1` — não carrega modelo no boot (primeira job faz lazy load) |
+| `WEBHOOK_URL` | URL POST quando job fica `done`, `failed` ou `awaiting_human_review` (variável `PLX_WEBHOOK_URL`) |
+| `WEBHOOK_SECRET` | Opcional — `PLX_WEBHOOK_SECRET`; header `X-Plx-Signature: sha256=...` |
 
 ## Voice clone vs transcrição
 

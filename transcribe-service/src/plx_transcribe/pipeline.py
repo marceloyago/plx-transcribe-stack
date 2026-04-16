@@ -12,6 +12,7 @@ from plx_transcribe.job_store import JobStore
 from plx_transcribe.models import JobStatus, TranscriptionJob
 from plx_transcribe.settings import Settings, map_mode_to_model_size
 from plx_transcribe import whisper_engine
+from plx_transcribe.webhooks import schedule_job_webhook
 
 logger = logging.getLogger(__name__)
 
@@ -88,6 +89,7 @@ async def run_transcription_pipeline(
             job.status = JobStatus.done
         job.updated_at_iso = _now_iso()
         store.update(job)
+        schedule_job_webhook(job_id, store=store, settings=settings)
     except Exception as exc:  # noqa: BLE001 — registo de falha real
         logger.exception("Job %s falhou na pipeline", job_id)
         failed = store.get(job_id)
@@ -97,3 +99,4 @@ async def run_transcription_pipeline(
             failed.error_message = str(exc)
             failed.updated_at_iso = _now_iso()
             store.update(failed)
+            schedule_job_webhook(job_id, store=store, settings=settings)

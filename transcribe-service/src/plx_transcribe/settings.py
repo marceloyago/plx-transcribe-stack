@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     api_port: int = 3055
     skip_whisper_preload: bool = False
     learning_jsonl_path: Path | None = None
+    webhook_url: str | None = None
+    webhook_secret: str | None = None
 
 
 def map_mode_to_model_size(mode: str) -> Literal["tiny", "base", "small", "medium", "large-v3"]:

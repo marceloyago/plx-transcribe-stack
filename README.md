@@ -30,6 +30,8 @@ $env:PORT='3055'
 .\scripts\smoke-api.ps1
 ```
 
+Webhooks (HMAC): definir `PLX_WEBHOOK_URL` (+ opcional `PLX_WEBHOOK_SECRET`) — ver `transcribe-service/README.md` e `transcribe-service/.env.example`.
+
 ## Documentos
 
 - `docs/PUBLIC-RESEARCH-TURBOSCRIBE.md`
