@@ -35,6 +35,14 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.settings = settings
     app.state.store = store
     app.state.executor = executor
+    peers_view = merge_peers_view(
+        load_peers_yaml(settings.peers_registry_path),
+        self_id=settings.service_id,
+        self_url=settings.public_base_url,
+        self_role="transcription",
+    )
+    peer_ids = [str(s.get("id", "?")) for s in peers_view.get("services", []) if isinstance(s, dict)]
+    logger.info("Registry peers (servicos): %s", ", ".join(peer_ids) or "(vazio)")
     if not settings.skip_whisper_preload:
         dev = settings.whisper_device if settings.whisper_device != "auto" else "cpu"
         whisper_engine.get_or_load_model(

@@ -25,7 +25,12 @@ uvicorn plx_transcribe.main:app --host 0.0.0.0 --port 3055 --reload
 | `PEERS_REGISTRY_PATH` | Caminho para YAML (ver `openclaw-workspace/registry/plx-ecosystem.example.yaml`) |
 | `SERVICE_ID` | id deste serviço (ex.: `plx-transcribe-service`) |
 | `PUBLIC_BASE_URL` | URL pública deste serviço |
-| `SKIP_WHISPER_LOAD` | `1` só em CI — health indica `whisper_ready=false` |
+| `SKIP_WHISPER_PRELOAD` | `1` — não carrega modelo no boot (primeira job faz lazy load) |
+
+## Voice clone vs transcrição
+
+- **Este serviço:** áudio → texto (**faster-whisper**).
+- **Voice clone / TTS no MSI:** outro HTTP local (`PLX_VOICE_*`) — ver `openclaw-workspace/docs/VOICE-CLONE-MSI-PLX_VOICE.md`; não confundir com Whisper aqui.
 
 ## API
 
