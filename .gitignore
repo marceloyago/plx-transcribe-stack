@@ -3,3 +3,6 @@ node_modules/
 dist/
 .env
 .env.local
+transcribe-service/**/__pycache__/
+transcribe-service/**/*.egg-info/
+transcribe-service/.venv/
