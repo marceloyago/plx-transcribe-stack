@@ -1,44 +1,37 @@
 # plx-transcribe-stack — PlayLoadX
 
-Stack inspirada em capacidades **públicas** do ecossistema tipo **TurboScribe** (turboscribe.ai), com implementação **própria**, API **tua**, e base **open-source** (Whisper / faster-whisper, filas, storage).
+Stack inspirada em capacidades **públicas** do ecossistema tipo **TurboScribe** (turboscribe.ai), com implementação **própria** e **motor em Python real** (faster-whisper), sem caminho principal em “stub”.
 
-**O que isto NÃO é:** engenharia reversa ilegal, caça a backdoors, ou scraping de áreas não públicas de terceiros.
-
-**O que isto É:** pesquisa de produto só em **docs oficiais + marketing + suporte**, matriz de features, e plano de implementação brutal em fases.
+**Regra 0 (lei MSI):** `../openclaw-workspace/docs/REGRA-0-NO-STUB-PYTHON-HIL-REGISTRY.md` — Python para ML/áudio; human-in-the-loop; registry de peers; cada agente/projeto conhece os outros.
 
 © 2024-2026 PlayLoadX
 
-## Documentos
+## API (canónica)
 
-- `docs/PUBLIC-RESEARCH-TURBOSCRIBE.md` — o que o mercado descreve publicamente (fontes citadas).
-- `docs/ARCHITECTURE-PLX.md` — camadas, dados, segurança.
-- `docs/FEATURE-BACKLOG-BRUTAL.md` — fases de entrega.
-- `contracts/` — tipos TypeScript (domínio).
+Pasta **`transcribe-service/`** — FastAPI, `POST /v1/jobs` (multipart com ficheiro real), `GET /v1/jobs/{id}`, `GET /v1/peers`, `POST /v1/jobs/{id}/human-approve` (quando `PLX_REQUIRE_HUMAN_APPROVAL=1`).
 
-## API (Fase 1 — MVP)
+Ver `transcribe-service/README.md`.
 
-- `GET /health` — estado do serviço.
-- `POST /v1/jobs` — cria job (JSON alinhado a `ICreateTranscriptionJobInput`); header opcional `X-Tenant-Id`.
-- `GET /v1/jobs/:id` — consulta job (pipeline **stub** até ligar Whisper).
+## Contratos TypeScript
 
-Variáveis: `PORT` (default `3044`), `PLX_STUB_PIPELINE_MS` (default `15`) — atraso entre estados stub.
+- `contracts/` — tipos partilhados (SRT, domínio legado; alinhar enums com Python em evoluções).
+
+## Verificação
 
 ```bash
-npm run start:api
+npm install && npm run typecheck && npm test
+cd transcribe-service && pip install -e ".[dev]" && pytest -q
 ```
 
-Smoke Windows (sobe servidor em background job, curl, encerra):
+Smoke Windows (Python + uvicorn em job):
 
 ```powershell
-$env:PORT = '3048'
+$env:PORT='3055'
 .\scripts\smoke-api.ps1
 ```
 
-## Verificação local
+## Documentos
 
-```bash
-cd plx-transcribe-stack
-npm install
-npm run typecheck
-npm test
-```
+- `docs/PUBLIC-RESEARCH-TURBOSCRIBE.md`
+- `docs/ARCHITECTURE-PLX.md`
+- `docs/FEATURE-BACKLOG-BRUTAL.md`

@@ -7,11 +7,14 @@
 - Modelo de job, estados, erros tipados.
 - Modos de transcrição (`cheetah` | `dolphin` | `whale` como nomes de produto).
 
-## Fase 1 — MVP API (em curso)
+## Fase 1 — MVP API (Python real)
 
-- [x] `POST /v1/jobs` (JSON + `sourceObjectKey`; upload multipart / URL assinada — pendente).
-- [x] `GET /v1/jobs/:id` (polling; SSE — pendente).
+- [x] `POST /v1/jobs` — **multipart** com ficheiro real (`transcribe-service/`).
+- [x] `GET /v1/jobs/:id` — polling.
+- [x] `GET /v1/peers` + registo YAML (Regra 0 — visibilidade mútua).
+- [x] Gate humano opcional (`PLX_REQUIRE_HUMAN_APPROVAL` + `POST /v1/jobs/{id}/human-approve`).
 - [ ] Webhook HMAC opcional.
+- [ ] URL assinada (ingestão sem upload directo).
 
 ## Fase 2 — Produto “Turbo-like”
 

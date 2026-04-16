@@ -11,6 +11,7 @@ export enum EJobStatus {
   Preprocessing = 'preprocessing',
   Transcribing = 'transcribing',
   PostProcessing = 'post_processing',
+  AwaitingHumanReview = 'awaiting_human_review',
   Done = 'done',
   Failed = 'failed',
   Cancelled = 'cancelled',
