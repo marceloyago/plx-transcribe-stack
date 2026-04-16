@@ -6,7 +6,7 @@
   "description": "PlayLoadX — stack de transcrição (contratos TS + API Python real)",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx/esm --test contracts/srt.test.ts",
+    "test": "node --import tsx/esm --test contracts/srt.test.ts contracts/plxTranscribeClient.test.ts",
     "test:py": "cd transcribe-service && python -m pytest -q"
   },
   "devDependencies": {

@@ -28,6 +28,8 @@ uvicorn plx_transcribe.main:app --host 0.0.0.0 --port 3055 --reload
 | `SKIP_WHISPER_PRELOAD` | `1` — não carrega modelo no boot (primeira job faz lazy load) |
 | `WEBHOOK_URL` | URL POST quando job fica `done`, `failed` ou `awaiting_human_review` (variável `PLX_WEBHOOK_URL`) |
 | `WEBHOOK_SECRET` | Opcional — `PLX_WEBHOOK_SECRET`; header `X-Plx-Signature: sha256=...` |
+| `CORS_ALLOW_ORIGINS` | CSV de origens permitidas; vazio = `*` (só desenvolvimento) |
+| `INTERNAL_API_KEY` | Se definido, rotas (exceto `GET /health`) exigem `X-Plx-Api-Key` |
 
 ## Voice clone vs transcrição
 

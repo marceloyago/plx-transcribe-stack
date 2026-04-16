@@ -28,7 +28,12 @@ def get_or_load_model(model_size: str, device: str, compute_type: str) -> Whispe
     key = (model_size, device, compute_type)
     if _model is not None and _model_key == key:
         return _model
-    logger.info("Carregar WhisperModel size=%s device=%s compute=%s", model_size, device, compute_type)
+    logger.info(
+        "Carregar WhisperModel size=%s device=%s compute=%s",
+        model_size,
+        device,
+        compute_type,
+    )
     _model = WhisperModel(model_size, device=device, compute_type=compute_type)
     _model_key = key
     return _model

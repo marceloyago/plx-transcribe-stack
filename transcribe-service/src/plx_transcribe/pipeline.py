@@ -5,23 +5,27 @@ from __future__ import annotations
 import asyncio
 import logging
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
+from plx_transcribe import whisper_engine
 from plx_transcribe.job_store import JobStore
 from plx_transcribe.models import JobStatus, TranscriptionJob
 from plx_transcribe.settings import Settings, map_mode_to_model_size
-from plx_transcribe import whisper_engine
 from plx_transcribe.webhooks import schedule_job_webhook
 
 logger = logging.getLogger(__name__)
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
-def _run_whisper_blocking(settings: Settings, job: TranscriptionJob) -> tuple[str, list]:
+def _run_whisper_blocking(
+    settings: Settings,
+    job: TranscriptionJob,
+) -> tuple[str, list[dict[str, Any]]]:
     """Parte bloqueante: carregar modelo e transcrever ficheiro."""
     if not job.temp_audio_path:
         raise ValueError("temp_audio_path em falta")
@@ -63,7 +67,7 @@ async def run_transcription_pipeline(
 
         loop = asyncio.get_event_loop()
 
-        def _call_whisper() -> tuple[str, list]:
+        def _call_whisper() -> tuple[str, list[dict[str, Any]]]:
             current = store.get(job_id)
             if current is None:
                 raise RuntimeError("job desapareceu do store")

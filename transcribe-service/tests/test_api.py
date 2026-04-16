@@ -4,13 +4,9 @@ from __future__ import annotations
 
 import io
 import time
-from typing import TYPE_CHECKING
 
 import pytest
 from fastapi.testclient import TestClient
-
-if TYPE_CHECKING:
-    from plx_transcribe.models import JobStatus
 
 
 def test_health_ok(client: TestClient) -> None:
@@ -29,7 +25,7 @@ def test_peers_includes_self(client: TestClient) -> None:
     assert any(s.get("self") for s in data["services"] if isinstance(s, dict))
 
 
-def test_job_pipeline_with_mocked_whisper(monkeypatch: pytest.MonkeyPatch, client: TestClient) -> None:
+def test_job_pipeline_mock_whisper(monkeypatch: pytest.MonkeyPatch, client: TestClient) -> None:
     """Evita download de modelo: substitui só a parte bloqueante (teste)."""
 
     def fake_run(

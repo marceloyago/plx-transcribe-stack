@@ -6,3 +6,5 @@ dist/
 transcribe-service/**/__pycache__/
 transcribe-service/**/*.egg-info/
 transcribe-service/.venv/
+transcribe-service/.coverage
+transcribe-service/.pytest_cache/

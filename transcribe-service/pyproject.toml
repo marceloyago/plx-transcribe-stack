@@ -21,7 +21,36 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.3.0"]
+dev = [
+  "pytest>=8.3.0",
+  "pytest-cov>=6.0.0",
+  "ruff>=0.8.0",
+  "mypy>=1.13.0",
+  "types-PyYAML>=6.0.12",
+]
+
+[tool.ruff]
+target-version = "py311"
+src = ["src", "tests"]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# FastAPI injecta File()/Form() nos defaults por desenho.
+"src/plx_transcribe/main.py" = ["B008"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+packages = ["plx_transcribe"]
+mypy_path = "src"
+
+[[tool.mypy.overrides]]
+module = ["faster_whisper.*", "faster_whisper"]
+ignore_missing_imports = true
 
 [project.scripts]
 plx-transcribe-api = "plx_transcribe.main:run"

@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any
 from uuid import uuid4
 
 
-class JobStatus(str, Enum):
+class JobStatus(StrEnum):
     """Estado da pipeline — inclui gate humano (Regra 0)."""
 
     queued = "queued"
@@ -22,7 +22,7 @@ class JobStatus(str, Enum):
     cancelled = "cancelled"
 
 
-class TranscribeMode(str, Enum):
+class TranscribeMode(StrEnum):
     """Modo comercial."""
 
     cheetah = "cheetah"
@@ -57,7 +57,7 @@ class TranscriptionJob:
         source_filename: str,
     ) -> TranscriptionJob:
         """Cria job em estado queued."""
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         return TranscriptionJob(
             id=str(uuid4()),
             tenant_id=tenant_id,
@@ -86,5 +86,9 @@ class TranscriptionJob:
         if self.segments:
             data["segments"] = self.segments
         if self.error_code is not None:
-            data["error"] = {"code": self.error_code, "message": self.error_message, "retryable": False}
+            data["error"] = {
+                "code": self.error_code,
+                "message": self.error_message,
+                "retryable": False,
+            }
         return data

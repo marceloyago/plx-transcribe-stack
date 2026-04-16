@@ -3,10 +3,21 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import Field
+from pydantic import BeforeValidator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _empty_str_to_none(value: object) -> str | None:
+    if value is None:
+        return None
+    if isinstance(value, str) and value.strip() == "":
+        return None
+    return str(value) if value is not None else None
+
+
+TEmptyAsNone = Annotated[str | None, BeforeValidator(_empty_str_to_none)]
 
 
 class Settings(BaseSettings):
@@ -30,6 +41,10 @@ class Settings(BaseSettings):
     learning_jsonl_path: Path | None = None
     webhook_url: str | None = None
     webhook_secret: str | None = None
+    # Lista separada por vírgulas; vazio = permitir qualquer origem (apenas dev).
+    cors_allow_origins: TEmptyAsNone = None
+    # Se definido, todas as rotas exceto GET /health exigem header X-Plx-Api-Key.
+    internal_api_key: TEmptyAsNone = None
 
 
 def map_mode_to_model_size(mode: str) -> Literal["tiny", "base", "small", "medium", "large-v3"]:

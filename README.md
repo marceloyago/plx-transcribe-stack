@@ -16,6 +16,19 @@ Ver `transcribe-service/README.md`.
 
 - `contracts/` — tipos partilhados (SRT, domínio legado; alinhar enums com Python em evoluções).
 
+## User client (TypeScript)
+
+- `contracts/plxTranscribeClient.ts` — `createPlxTranscribeClient({ baseUrl, apiKey?, tenantId? })` alinhado à API Python.
+- Variáveis de ambiente sugeridas no front: URL público HTTPS + mesma `PLX_INTERNAL_API_KEY` que o serviço (via BFF, se possível).
+
+## Docker (produção mínima)
+
+```bash
+cp deploy.env.example .env
+# editar .env (URL público, CORS, API key, webhooks)
+docker compose up -d --build
+```
+
 ## Verificação
 
 ```bash
@@ -37,3 +50,4 @@ Webhooks (HMAC): definir `PLX_WEBHOOK_URL` (+ opcional `PLX_WEBHOOK_SECRET`) —
 - `docs/PUBLIC-RESEARCH-TURBOSCRIBE.md`
 - `docs/ARCHITECTURE-PLX.md`
 - `docs/FEATURE-BACKLOG-BRUTAL.md`
+- `docs/OPERATIONS-COMMERCIAL.md`
