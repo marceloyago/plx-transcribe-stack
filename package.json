@@ -1,0 +1,16 @@
+{
+  "name": "plx-transcribe-stack",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "PlayLoadX — stack de transcrição (contratos + docs)",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx/esm --test contracts/srt.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
