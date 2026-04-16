@@ -3,6 +3,8 @@ node_modules/
 dist/
 .env
 .env.local
+apps/dashboard/.env.local
+apps/dashboard/.next/
 transcribe-service/**/__pycache__/
 transcribe-service/**/*.egg-info/
 transcribe-service/.venv/

@@ -21,6 +21,12 @@ Ver `transcribe-service/README.md`.
 - `contracts/plxTranscribeClient.ts` — `createPlxTranscribeClient({ baseUrl, apiKey?, tenantId? })` alinhado à API Python.
 - Variáveis de ambiente sugeridas no front: URL público HTTPS + mesma `PLX_INTERNAL_API_KEY` que o serviço (via BFF, se possível).
 
+## Dashboard Next.js (`apps/dashboard`)
+
+- UI comercial mínima (painel + nova job + detalhe) ligada à API Python via **Server Actions** (chave só no servidor).
+- Arranque: `cp apps/dashboard/.env.local.example apps/dashboard/.env.local` → definir `PLX_TRANSCRIBE_API_URL` (ex. `http://127.0.0.1:3055`) → com API Python a correr: `npm run dashboard:dev` → abrir `http://localhost:3000`.
+- Build: `npm run dashboard:build` (a partir da raiz, depois de `npm install` dentro de `apps/dashboard`).
+
 ## Docker (produção mínima)
 
 ```bash

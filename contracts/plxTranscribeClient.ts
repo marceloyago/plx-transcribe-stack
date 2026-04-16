@@ -10,7 +10,7 @@ import {
   type EJobStatus,
   type IJobError,
   type ITranscriptSegment,
-} from './transcription.types.js';
+} from './transcription.types';
 
 /** Resposta GET /health */
 export interface IPlxTranscribeHealth {
@@ -56,6 +56,21 @@ function joinUrl(base: string, path: string): string {
   const b = base.endsWith('/') ? base.slice(0, -1) : base;
   const p = path.startsWith('/') ? path : `/${path}`;
   return `${b}${p}`;
+}
+
+/** API Python devolve snake_case em /health — normaliza para camelCase. */
+function parseHealthPayload(raw: unknown): IPlxTranscribeHealth {
+  if (typeof raw !== 'object' || raw === null) {
+    throw new TypeError('Resposta /health inválida');
+  }
+  const o = raw as Record<string, unknown>;
+  return {
+    ok: Boolean(o.ok),
+    service: String(o.service ?? ''),
+    whisperReady: Boolean(o.whisperReady ?? o.whisper_ready),
+    humanGateEnabled: Boolean(o.humanGateEnabled ?? o.human_gate_enabled),
+    skipPreload: Boolean(o.skipPreload ?? o.skip_preload),
+  };
 }
 
 function headersJson(config: IPlxTranscribeClientConfig): HeadersInit {
@@ -118,7 +133,7 @@ export function createPlxTranscribeClient(config: IPlxTranscribeClientConfig): I
       if (!r.ok) {
         throw new Error(`health falhou: HTTP ${r.status}`);
       }
-      return (await r.json()) as IPlxTranscribeHealth;
+      return parseHealthPayload(await r.json());
     },
 
     async peers(): Promise<IPlxTranscribePeersView> {

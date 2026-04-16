@@ -5,8 +5,8 @@
 
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createPlxTranscribeClient } from './plxTranscribeClient.js';
-import { EJobStatus, ETranscribeMode } from './transcription.types.js';
+import { createPlxTranscribeClient } from './plxTranscribeClient';
+import { EJobStatus, ETranscribeMode } from './transcription.types';
 
 test('createPlxTranscribeClient.health usa baseUrl e opcional apiKey', async () => {
   const calls: { url: string; headers: Headers }[] = [];
